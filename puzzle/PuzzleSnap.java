@@ -35,6 +35,7 @@ class MainWindow extends JFrame
 		public long lHighscore = 0;
 	}
 	
+	private PuzzleWindow puzzleWnd = null;
 	private JButton btnStart = new JButton("Start Game");
 	private JRadioButton rLevelEasy = new JRadioButton("EASY", true);
 	private JRadioButton rLevelMedium = new JRadioButton("MEDIUM", false);
@@ -46,6 +47,8 @@ class MainWindow extends JFrame
 	
 	public void callback(long time_sec, Difficulty level, boolean bCleared)
 	{
+		puzzleWnd = null;
+		
 		if(bCleared)
 		{
 			// Reflect the result to statistics data
@@ -161,7 +164,7 @@ class MainWindow extends JFrame
 					level = Difficulty.MEDIUM;
 				else
 					level = Difficulty.HARD;
-				PuzzleWindow puzzle = new PuzzleWindow("Snap", level, MainWindow.this);
+				puzzleWnd = new PuzzleWindow("Snap", level, MainWindow.this);
 				btnStart.setEnabled(false);
 			}
 		});	
@@ -172,6 +175,9 @@ class MainWindow extends JFrame
 	{
 		public void windowClosing(WindowEvent e)
 		{
+			if(puzzleWnd != null)
+				puzzleWnd.dispatchEvent(new WindowEvent(puzzleWnd, WindowEvent.WINDOW_CLOSING));
+			
 			// save statistics data
 			try
 			{
