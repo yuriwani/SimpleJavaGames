@@ -61,7 +61,10 @@ class MainWindow extends JFrame
 				nIndex = 2;
 			
 			stat[nIndex].nPlayed++;
-			stat[nIndex].dAverage = (stat[nIndex].dAverage + time_sec)/stat[nIndex].nPlayed;
+			if(stat[nIndex].dAverage == 0)
+				stat[nIndex].dAverage = time_sec;
+			else
+				stat[nIndex].dAverage = (stat[nIndex].dAverage + time_sec)/2;
 			if(time_sec < stat[nIndex].lBestScore || stat[nIndex].lBestScore == 0)
 				stat[nIndex].lBestScore = time_sec;
 			
