@@ -32,7 +32,7 @@ class MainWindow extends JFrame
 		private static final long serialVersionUID = 1L;
 		public int nPlayed = 0;
 		public double dAverage = 0;
-		public long lHighscore = 0;
+		public long lBestScore = 0;
 	}
 	
 	private PuzzleWindow puzzleWnd = null;
@@ -62,8 +62,8 @@ class MainWindow extends JFrame
 			
 			stat[nIndex].nPlayed++;
 			stat[nIndex].dAverage = (stat[nIndex].dAverage + time_sec)/stat[nIndex].nPlayed;
-			if(time_sec < stat[nIndex].lHighscore || stat[nIndex].lHighscore == 0)
-				stat[nIndex].lHighscore = time_sec;
+			if(time_sec < stat[nIndex].lBestScore || stat[nIndex].lBestScore == 0)
+				stat[nIndex].lBestScore = time_sec;
 			
 			UpdateStatShow();
 		}
@@ -81,15 +81,15 @@ class MainWindow extends JFrame
 		else
 			nIndex = 2;
 		
-		textStat.setText(String.format("<html>High Score: %d<br>Average Score: %f<br>Played: %d", 
-							stat[nIndex].lHighscore, stat[nIndex].dAverage, stat[nIndex].nPlayed) );	
+		textStat.setText(String.format("<html>Best Score: %d<br>Average Score: %f<br>Played: %d", 
+							stat[nIndex].lBestScore, stat[nIndex].dAverage, stat[nIndex].nPlayed) );	
 	}
 	
 	MainWindow (String strWindowtitle)
 	{
 		// create main window object
 		super(strWindowtitle);
-		setSize(300, 300);
+		setBounds(50, 50, 300, 300);
 		setVisible(true);
 		addWindowListener(new WindowEventHandlers());
 			
@@ -264,7 +264,7 @@ class PuzzleWindow extends JFrame
 	PuzzleWindow(String strWindowtitle, Difficulty level, MainWindow mainWnd)
 	{
 		super(strWindowtitle);
-		setSize(600,600);
+		setBounds(250, 90, 600,600);
 		setVisible(true);
 		
 		addWindowListener(new WindowEventHandlers());
@@ -278,17 +278,17 @@ class PuzzleWindow extends JFrame
 			case EASY:
 				row_num = col_num = 4;
 				CreateData(4,4);
-				timerShow = new Timer(1000, new TimerHandler());
+				timerShow = new Timer(800, new TimerHandler());
 				break;
 			case MEDIUM:
 				row_num = col_num = 6;
 				CreateData(6,6);
-				timerShow = new Timer(1000, new TimerHandler());
+				timerShow = new Timer(800, new TimerHandler());
 				break;
 			case HARD:
 				row_num = col_num = 8;
 				CreateData(8,8);
-				timerShow = new Timer(800, new TimerHandler());
+				timerShow = new Timer(600, new TimerHandler());
 				break;
 			default:
 				System.out.println("fell in default. "+level);
